@@ -1,11 +1,11 @@
 # ACPI Device IDs
 
-Plug and Play ID | Description
+Plug and Play ID | 설명
 -----------------|------------
-`PNP0C08` | **ACPI**. Not declared in ACPI as a device. This ID is used by OSPM for the hardware resources consumed by the ACPI fixed register spaces, and the operation regions used by AML code. It represents the core ACPI hardware itself.
-`PNP0A05` | **Generic Container Device**. A device whose settings are totally controlled by its ACPI resource information, and otherwise needs no device or bus-specific driver support. This was originally known as Generic ISA Bus Device. This ID should only be used for containers that do not produce resources for consumption by child devices. Any system resources claimed by a PNP0A05 device’s `_CRS` object must be consumed by the container itself.
-`PNP0A06`| **Generic Container Device**. This device behaves exactly the same as the PNP0A05 device. This was originally known as Extended I/O Bus. This ID should only be used for containers that do not produce resources for consumption by child devices. Any system resources claimed by a PNP0A06 device’s `_CRS` object must be consumed by the container itself.
-`PNP0C09`| **Embedded Controller Device**. A host embedded controller controlled through an ACPI-aware driver.
+`PNP0C08` | **ACPI**. ACPI 에서 장치로 정의되지 않은 ID. 이 아이디는 OSPM에서 ACPI 고정 레지스터가 차지한 하드웨어 리소스와 AML 코드가 사용하는 연산 영역에 사용됨.
+`PNP0A05` | **Generic Container Device**.  ACPI 리소스 정보에 의해 완전히 제어되어 장치나 버스별 드라이버 지원이 필요 없는 장치. Child에 사용할 리소스를 생성하지 않는 컨테이너에만 사용해야 하고,'_CRS' 개체가 할당되었을시 그 컨테이너 안에서만 사용이 되어야함. 안그러면 오류가 발생.
+`PNP0A06`| **Generic Container Device**. PNP0A05와 같음.
+`PNP0C09`| **Embedded Controller Device**. Embedded Controller Device. I/O 장치들 (마우스,키보드 터치패드등..), LED, 배터리, 블루투스 연결, Watchdog Timer, Wake-on-Lan 등이 Embedded Controller에 제어가 된다.
 `PNP0C0A` | **Control Method Battery**. A device that solely implements the ACPI Control Method Battery functions. A device that has some other primary function would use its normal device ID. This ID is used when the devices primary function is that of a battery.
 `PNP0C0B` | **Fan**. A device that causes cooling when “on” (D0 device state).
 `PNP0C0C` | **Power Button Device******. A device controlled through an ACPI-aware driver that provides power button functionality. This device is only needed if the power button is not supported using the fixed register space.
@@ -38,4 +38,4 @@ Plug and Play ID | Description
 `ACPI0017`| **Compute Express Link Root Object**. This device represents the root of a CXL capable device hierarchy. It shall be present whenever the platform allows OSPM to dynamically assign CXL endpoints to a platform address space.
 `ACPI0018` | **Audio Composition Device**. This is an ACPI-enumerated device that describes audio component logical connection information within a system.
 
-**SOURCE**: [**ACPI Specs**](https://uefi.org/specifications), **Chpt. 5.6.7**: "Device Class-Specific Objects"
+**출저**: [**ACPI Specs**](https://uefi.org/specifications), **Chpt. 5.6.7**: "Device Class-Specific Objects"
