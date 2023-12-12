@@ -8,7 +8,7 @@ Plug and Play ID | 설명
 `PNP0C09`| **Embedded Controller Device**. Embedded Controller Device. I/O 장치들 (마우스,키보드 터치패드등..), LED, 배터리, 블루투스 연결, Watchdog Timer, Wake-on-Lan 등이 Embedded Controller에 제어가 된다.
 `PNP0C0A` | **Control Method Battery**. 배터리 설정
 `PNP0C0B` | **Fan**. D0 상태일시, 시스템팬 제어
-`PNP0C0C` | **Power Button Device******.전원버튼.
+`PNP0C0C` | **Power Button Device***.전원버튼.
 `PNP0C0D`| **Lid Device**. 노트북의 덮개 상태 제어.
 `PNP0C0E`| **Sleep Button Device**. Sleep 버튼, 전원 버튼 옆에 따로 Sleep 버튼이 있을경우 이로인해서 Sleep 기능이 제대로 작동을 하지 않을 경우가 있다.
 `PNP0C0F`| **PCI Interrupt Link Device**. A device that allocates an interrupt connected to a PCI interrupt pin.
