@@ -6,12 +6,12 @@ Plug and Play ID | 설명
 `PNP0A05` | **Generic Container Device**.  ACPI 리소스 정보에 의해 완전히 제어되어 장치나 버스별 드라이버 지원이 필요 없는 장치. Child에 사용할 리소스를 생성하지 않는 컨테이너에만 사용해야 하고,'_CRS' 개체가 할당되었을시 그 컨테이너 안에서만 사용이 되어야함. 안그러면 오류가 발생.
 `PNP0A06`| **Generic Container Device**. PNP0A05와 같음.
 `PNP0C09`| **Embedded Controller Device**. Embedded Controller Device. I/O 장치들 (마우스,키보드 터치패드등..), LED, 배터리, 블루투스 연결, Watchdog Timer, Wake-on-Lan 등이 Embedded Controller에 제어가 된다.
-`PNP0C0A` | **Control Method Battery**. A device that solely implements the ACPI Control Method Battery functions. A device that has some other primary function would use its normal device ID. This ID is used when the devices primary function is that of a battery.
-`PNP0C0B` | **Fan**. A device that causes cooling when “on” (D0 device state).
-`PNP0C0C` | **Power Button Device******. A device controlled through an ACPI-aware driver that provides power button functionality. This device is only needed if the power button is not supported using the fixed register space.
-`PNP0C0D`| **Lid Device**. A device controlled through an ACPI-aware driver that provides lid status functionality. This device is only needed if the lid state is not supported using the fixed register space.
-`PNP0C0E`| **Sleep Button Device**. A device controlled through an ACPI-aware driver that provides power button functionality. This device is optional.
-`PNP0C0F`| **PCI Interrupt Link Device**. A device that allocates an interrupt connected to a PCI interrupt pin. See Section 6.2.13 for more details.
+`PNP0C0A` | **Control Method Battery**. 배터리 설정
+`PNP0C0B` | **Fan**. D0 상태일시, 시스템팬 제어
+`PNP0C0C` | **Power Button Device******.전원버튼.
+`PNP0C0D`| **Lid Device**. 노트북의 덮개 상태 제어.
+`PNP0C0E`| **Sleep Button Device**. Sleep 버튼, 전원 버튼 옆에 따로 Sleep 버튼이 있을경우 이로인해서 Sleep 기능이 제대로 작동을 하지 않을 경우가 있다.
+`PNP0C0F`| **PCI Interrupt Link Device**. A device that allocates an interrupt connected to a PCI interrupt pin.
 `PNP0C80`| **Memory Device.** This device is a memory subsystem.
 `ACPI0001`| **SMBus 1.0 Host Controller.** An SMBus host controller (SMB-HC) compatible with the embedded controller-based SMB-HC interface (see Section 12.9), and implementing the SMBus 1.0 Specification.
 `ACPI0002`|Smart Battery Subsystem. The Smart battery Subsystem specified in Section 10, “Power Source Devices.”
