@@ -283,11 +283,12 @@ Store (Local0, Local1)
 Local1 = Local0
 ```
 
-### ASL Calculation
+### ASL 연산자들
 
-|  ASL+  |  Legacy ASL|  Examples        
+|  ASL+  | Legacy ASL |  예시       
 | :----: | :--------: |:------------------------------------------------------- |
-|   +    |    Add     | `Local0 = 1 + 2`<br/>`Add (1, 2, Local0)`                                 |   -    |  Subtract  | `Local0 = 2 - 1`<br/>`Subtract (2, 1, Local0)`                            
+|   +    |    Add     | `Local0 = 1 + 2`<br/>`Add (1, 2, Local0)`
+|   -    |  Subtract  | `Local0 = 2 - 1`<br/>`Subtract (2, 1, Local0)`                            
 |   *    |  Multiply  | `Local0 = 1 * 2`<br/>`Multiply (1, 2, Local0)`                            
 |   /    |   Divide   | `Local0 = 10 / 9`<br/>`Divide (10, 9, Local1(remainder), Local0(result))` 
 |   %    |    Mod     | `Local0 = 10 % 9`<br/>`Mod (10, 9, Local0)`                               
@@ -300,7 +301,7 @@ Local1 = Local0
 |   ~    |    Not     | `Local0 = ~(0x00)`<br/>`Not (0x00,Local0)`                                
 |        |    Nor     | `Nor (0x11, 0x22, Local0)`                                                
 
-Read `ACPI Specification` for more details
+더 알아보기 : https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/19_ASL_Reference/ACPI_Source_Language_Reference.html#asl-2-0-symbolic-operators-and-expressions
 
 ### ASL Logic
 
