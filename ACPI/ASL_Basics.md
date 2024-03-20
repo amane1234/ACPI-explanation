@@ -407,27 +407,28 @@ Only two results from logical calculation - `0` or `1`
 
    when one of `TEST` called from `Devx`, another `TEST` will be failed to create `MSTR`.
 
-## ASL flow Control
+## ASL 흐름제어문 & 예시
 
-ASL also has methods to control flow.
+ASL에서 지원하는 흐름제어문들:
 
 - Switch
   - Case
   - Default
   - BreakPoint
+    
 - While
   - Break
   - Continue
+    
 - If
   - Else
   - ElseIf
+    
 - Stall
 
-### Branch control `If` & `Switch`
+### `If`, `Switch`가 쓰였을 경우
 
 #### `If`
-
-   The following codes check if the system is `Darwin`, if yes then`OSYS = 0x2710`
 
    ```asl
    If (_OSI ("Darwin"))
@@ -435,25 +436,31 @@ ASL also has methods to control flow.
        OSYS = 0x2710
    }
    ```
+OSI가 ("Darwin")일 경우, OSYS=0x2710
+
 
 #### `ElseIf`, `Else`
-
-   The following codes check if the system is `Darwin`, and if the system is not `Linux`, if yes then `OSYS = 0x07D0`
 
    ```asl
    If (_OSI ("Darwin"))
    {
        OSYS = 0x2710
    }
+
    ElseIf (_OSI ("Linux"))
    {
        OSYS = 0x03E8
    }
+
    Else
    {
        OSYS = 0x07D0
    }
    ```
+OSI가 "Darwin" 일 경우 OSYS = 0x2710, 
+OSI가 "Linux" 일 경우 OSYS = 0x03E8, 
+Darwin 과 Linux가 둘 다 아닐경우 OSYS = 0x07D0
+
 
 #### `Switch`, `Case`, `Default`, `BreakPoint`
 
