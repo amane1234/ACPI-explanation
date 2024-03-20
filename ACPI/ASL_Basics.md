@@ -42,7 +42,7 @@ A notable feature of `ACPI` is a specific proprietary language to compile ACPI t
 ## ASL Guidelines
 
 ### `DefinitionBlock` 이란
-`DefinitionBlock`은 SSDT의 기본 토대입니다. 모든 ASL의 코드는 `DefinitionBlock` 내부에 선언 되어야 함 (괄호 :{ }). Definition Block 외부에서 선언되어져있는 ASL 코드들은 전부 유효하지 않은것으로 간주 됨.
+`DefinitionBlock`은 SSDT의 기본 토대입니다. 모든 ASL의 코드는 `DefinitionBlock` 내부에 선언 되어야 함, 괄호 :{ }. Definition Block 외부에서 선언되어있는 ASL 코드들은 전부 유효하지 않은것으로 간주 됨.
 
 ## `DefinitionBlock`의 예시:
 
@@ -64,46 +64,23 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "NOAWAC", 0x00000000)
 }
 ```
 
-#### **General form of the `DefinitionBlock`** 
-Numbers indicate the amount of characters that can be used in each section):
+#### **`DefinitionBlock`의 구조** 
 
-```asl
+```
 DefinitionBlock ("", "1234", X, "123456", "12345678", 0x00000000)
 ```
 
-The `DefinitionBlock` provides information about itself in the brackets `()`. These are:
-
 Parameter | Form | Description|
 ----------|:----:|--------
-**AMLFileName**| `""` | Name of the AML file. Can be a null string. Usually left empty.
-**TableSignature**| `"1234"` | Signature of the AML file (can be `DSDT` or `SSDT`). 4-character string.
-**ComplianceRevision**| `X` | Defines whether to use the 32-bit or 64-bit arithmetic. A value of `1` or less is for 32 bit systems, while a value of `2` or greater is for 64 bit systems. So for current systems, the default is value is `2`.
-**OEM ID**| `"123456"` |ID of the original equipment manufacturer (OEM) developing the ACPI table (6-character string)
-**OEM Table ID**| `"12345678"` |A specific identifier for the table (8-character string)
-**OEMRevision**| `0x00000000` | Revision number set by the OEM (32-bit number)
+**AMLFileName**| `""` | AML 파일의 이름. Null string 으로도 선언이 될수 있기 때문에, 보통 빈칸 (Empty)임. String
+**TableSignature**| `"1234"` | AML 파일의 Signiture, 4글자 string임.
+**ComplianceRevision**| `X` | 32비트인지 64비트인지 나타냄. 1보다 작거나 같으면 32-bit, 2보다 크거나 같으면 64-bit. Int
+**OEM ID**| `"123456"` |OEM ACPI 테이블 (6-character string)
+**OEM Table ID**| `"12345678"` |OEM 테이블의 아이디 (8-character string)
+**OEMRevision**| `0x00000000` | Revision number set (32-bit number)
 
-#### `DefinitionBlock` Example
-:bulb: For hackintoshing, we usually use something like this. The SSDT begins with:
 
-```asl
-DefinitionBlock ("", "SSDT", 2, "Hack", "CpuPlug", 0x00000000)
-{
-	// Your code goes here!
-```
-and is ended by:
-
-```asl
-}
-```
-**Translation**:
-
-- `""` &rarr; **AMLFileName** 
-- `"SSDT"` &rarr; **TableSignature**
-- `2` &rarr; **ComplianceRevision** (for 64 bit OSes)
-- `"hack"` &rarr; **OEM ID** (Author name): "hack" is pretty common but generic. OC Little tables use `"OCLT"`. For my own tables, I use `"5T33Z0"` or `"5TZ0"`. 
-- `"CpuPlug"` &rarr; **OEM Table ID**: Name the SSDT is identified as in the ACPI environment (not the file name). Usually, an SSDT is named by the `Device` or `Method` it addresses. In this example `"CpuPlug"`.
-
-**NOTE**: If you write replacement tables (e.g. for USB port declarations), you need to use the same OEM Table ID as the table you want to replace. 
+**NOTE**: USB 포트 지정등의 테이블을 재구성할때는 ,SSDT 패치파일에 적힌 OEM Table ID가 원본과 서로 같아야 한다. 같지 않다면 적용이 안됨.
 
 ### Control Methods
 1. Methods and variables beginning with an underscore `_` are reserved for operating systems. That's why some ASL tables contain `_T_X` trigger warnings after decompiling.
