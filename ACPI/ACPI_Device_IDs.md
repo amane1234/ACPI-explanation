@@ -8,15 +8,15 @@ Plug and Play ID | 설명
 `PNP0C09`| **Embedded Controller Device**. Embedded Controller Device. I/O 장치들 (마우스,키보드 터치패드등..), LED, 배터리, 블루투스 연결, Watchdog Timer, Wake-on-Lan 등이 Embedded Controller에 제어가 된다.
 `PNP0C0A` | **Control Method Battery**. 배터리 설정
 `PNP0C0B` | **Fan**. D0 상태일시, 시스템팬 제어
-`PNP0C0C` | **Power Button Device***.전원버튼.
+`PNP0C0C` | **Power Button Device**. 전원버튼.
 `PNP0C0D`| **Lid Device**. 노트북의 덮개 상태 제어.
-`PNP0C0E`| **Sleep Button Device**. Sleep 버튼, 전원 버튼 옆에 따로 Sleep 버튼이 있을경우 이로인해서 Sleep 기능이 제대로 작동을 하지 않을 경우가 있다.
-`PNP0C0F`| **PCI Interrupt Link Device**. A device that allocates an interrupt connected to a PCI interrupt pin.
-`PNP0C80`| **Memory Device.** This device is a memory subsystem.
+`PNP0C0E`| **Sleep Button Device**. Sleep 버튼, 전원 버튼 옆에 따로 Sleep 버튼이 있을경우 이로 인하여 Sleep 기능이 제대로 작동을 하지 않을 경우가 있다.
+`PNP0C0F`| **PCI Interrupt Link Device**. 
+`PNP0C80`| **Memory Device.** 메모리 하위 시스템
 `ACPI0001`| **SMBus 1.0 Host Controller.** An SMBus host controller (SMB-HC) compatible with the embedded controller-based SMB-HC interface (see Section 12.9), and implementing the SMBus 1.0 Specification.
 `ACPI0002`|Smart Battery Subsystem. The Smart battery Subsystem specified in Section 10, “Power Source Devices.”
 `ACPI0003`|**Power Source Device.** The Power Source device specified in Section 10, “Power Source Devices.” This can represent either an AC Adapter (on mobile platforms) or a fixed Power Supply.
-`ACPI0004`| **Module Device**. This device is a container object that acts as a bus node in a namespace. A Module Device without any of the `_CRS`, _PRS and `_SRS` methods behaves the same way as the Generic Container Devices (PNP0A05 or PNP0A06). If the Module Device contains a `_CRS` method, only these resources described in the `_CRS` are available for consumption by its child devices. Also, the Module Device can support `_PRS` and `_SRS` methods if `_CRS` is supported.
+`ACPI0004`| **Module Device**. Bus Node 역할을 하는 컨테이너 개체._CRS, _PRS 및 _SRS Method 가 없다면 일반 컨테이너 장치(PNP0A05 또는 PNP0A06)와 동일하게 동작. _CRS Method 가 포함 되어 있는 경우, 하위 장치 (Child devices)에서 사용 가능한 리소스는 보통 _CRS에 포함된것만 사용이 가능하다._CRS Method를 지원하는 경우, _PRS 및 _SRS Method를 지원할 수 있음.
 `ACPI0005`| **SMBus 2.0 Host Controller**. An SMBus host controller (SMB-HC compatible with the embedded controller-based SMB-HC interface (see Section 12.9), and implementing the SMBus 2.0 Specification.
 `ACPI0006`|**GPE Block Device**. This device allows a system designer to describe GPE blocks beyond the two that are described in the FADT.
 `ACPI0007`|**Processor Device**. This device provides an alternative to declaring processors using the processor ASL statement. See Section 8.4 for more details.
@@ -34,7 +34,7 @@ Plug and Play ID | 설명
 `ACPI0013`|**Generic Event Device**. This device maps Interrupt-signaled events. See Section 5.6.9.
 `ACPI0014`|**Wireless Power Calibration Device**. This device uses user presence and notification.
 `ACPI0015`| **USB4 host interface device**. See Links to ACPI-Related Documents under the heading “USB4 Host Interface Specification”
-`ACPI0016`| **Compute Express Link Host Bridge**. This device is a Compute Express Link Host bridge.
+`ACPI0016`| **Compute Express Link Host Bridge**. 
 `ACPI0017`| **Compute Express Link Root Object**. This device represents the root of a CXL capable device hierarchy. It shall be present whenever the platform allows OSPM to dynamically assign CXL endpoints to a platform address space.
 `ACPI0018` | **Audio Composition Device**. This is an ACPI-enumerated device that describes audio component logical connection information within a system.
 
