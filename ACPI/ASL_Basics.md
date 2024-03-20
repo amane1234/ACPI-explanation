@@ -41,8 +41,28 @@ A notable feature of `ACPI` is a specific proprietary language to compile ACPI t
 
 ## ASL Guidelines
 
-### The `DefinitionBlock`
-The `DefinitionBlock` is the foundation of every SSDT. All ASL code must reside inside of DefinitionBlock declarations `{}` (this is called the `Root Scope`) to be valid. ASL code found outside of any DefinitionBlock will be regarded as invalid. 
+### `DefinitionBlock` 이란
+`DefinitionBlock`은 SSDT의 기본 토대입니다. 모든 ASL의 코드는 `DefinitionBlock` 내부에 선언 되어야 함 (괄호 :{ }). Definition Block 외부에서 선언되어져있는 ASL 코드들은 전부 유효하지 않은것으로 간주 됨.
+
+## `DefinitionBlock`의 예시:
+
+```
+DefinitionBlock ("", "SSDT", 2, "ACDT", "NOAWAC", 0x00000000)
+{
+    External (STAS, IntObj)
+
+    Scope (\)
+    {
+        Method (_INI, 0, NotSerialized)  // _INI: Initialize
+        {
+            If (_OSI ("Darwin"))
+            {
+                STAS = One
+            }
+        }
+    }
+}
+```
 
 #### **General form of the `DefinitionBlock`** 
 Numbers indicate the amount of characters that can be used in each section):
