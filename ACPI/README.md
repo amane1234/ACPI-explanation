@@ -1,45 +1,35 @@
-# ACPI Basics
-## A brief Introduction to ACPI
-"ACPI… the final frontier…". No, not really. But this is how overwhelmed most Hackintosh users feel the first time, they open an `.aml` file and look inside it. Understanding what to make of all of it seems like an expedition of epochal proportions impossible to grasp. And that's who this introduction is for.
+# ACPI 기초
 
-Did you ever wonder what a `DSDT` or `SSDT` table is and what it does? Or how these rename patches that you have in your `config.plist` work? Well, after reading this, you will know for sure! But first things first…
+### ACPI란 무엇인가?
+ACPI는 **고급 구성 및 전원 인터페이스(Advanced Configuration & Power Interface)**의 약자입니다. 인텔, 마이크로소프트 등 여러 제조업체가 만든 아키텍처 독립적인 전원 관리 및 구성 표준입니다.
 
-### What is ACPI?
-**ACPI** stands for **Advanced Configuration & Power Interface**. It is an architecture-independent power management and configuration standard originally developed by Intel, Microsoft, Toshiba and other manufacturers who formed the ACPI special interest group. In October 2013, the assets of the ACPI specifications were transferred to the UEFI Forum. 
-
-Each computer mainboard ships with a set of ACPI Tables stored in the BIOS (or UEFI). The number and content of ACPI tables varies from used mainboard and chipset - it even *can* vary between different BIOS versions as well. ACPI is literally just a set of tables of texts (converted into binary code) to provide operating systems with some basic information about the used hardware. **`DSDTs`** and **`SSDTs`** are just *two* of many tables that make up a system's ACPI – but very important ones for us.
-
-The latest version of the ACPI Specification (v6.5) was released in August 2022. ACPI serves as an interface layer between the operating system and system firmware, as shown below:
+모든 컴퓨터 메인보드는 UEFI (혹은 BIOS)에 저장된 ACPI 테이블셋과 함께 제공됩니다. ACPI 테이블의 갯수와 내용은 사용되는 메인보드와 칩셋에 따라 다르며, 서로 다른 UEFI 버전 간에도 차이가 있을 수 있습니다. ACPI는 실제로 사용된 하드웨어에 대한 기본 정보를 운영 체제에 제공하기 위한 텍스트 테이블(이진 코드로 변환된 형태)의 집합입니다..
 
 ![acpi-overview](https://user-images.githubusercontent.com/76865553/187380087-3446fc20-75c2-4490-95f9-bfc8043ffb09.png)
 
-**Source**: UEFI.org
+ACPI 하위 시스템에서는 플랫폼의 주변 장치와 시스템 하드웨어 기능이 "부팅" 시 로드되는 DSDT (차별화된 시스템 설명 테이블)와 "실행중" 동적으로 로드되는 SSDT (보조 시스템 설명 테이블)에 설명됩니다. ACPI 시스템은 기계의 하드웨어 정보를 .aml 형식으로 설명하며, 자체적인 드라이버 기능은 없습니다.
 
-In the ACPI subsystem, peripheral devices and system hardware features of the platform are described in the **`DSDT`** (Differentiated System Description Table), which is loaded at boot and in SSDTs (Secondary System Description Tables), which are loaded *dynamically* at run time. The ACPI system describes a machine's hardware information in `.aml` format and does not have any driver capabilities of its own.
-
-The ACPI subsystem is initialized after the system's POST. The initialization works as follows (chronoligically, from top to bottom):
-
+ACPI은 시스템의 POST 이후에 시작됩니다. 실행 과정은 다음과 같이 진행됩니다(시간 순서대로, 위에서 부터 아래로):
 ![ACPI_Init](https://github.com/5T33Z0/OC-Little-Translated/assets/76865553/7769db1f-a046-4990-9546-c001fe9f4654)
 
-**Source**: [ACPI Introduction and Overview](https://cdrdv2-public.intel.com/772721/acpi-introduction-042723.pdf)
 
-The ACPI subsystem itself consists of 2 data structures: *data tables* and *definition blocks* (see figure below). These data structures are the primary communication mechanism between the firmware and the OS. Data tables store raw data and are consumed by device drivers. Definition blocks consist of byte code that is executable by an interpreter:
+ACPI 서브시스템 자체는 "데이터 테이블"과 "정의 블록"의 두 가지의 구조로 구성됩니다(아래 그림 참조). 이러한 데이터 구조는 펌웨어와 운영 체제 간의 주요 통신 메커니즘입니다. 데이터 테이블은 일차적 데이터를 저장하며 장치 드라이버에 의해 사용됩니다. 정의 블록은 인터프리터에 의해 실행 가능한 바이트 코드로 구성됩니다.
 
 ![acpi-structure](https://user-images.githubusercontent.com/76865553/187380905-e325398d-e65a-4db3-85c2-0d2cdb0b2934.png)</br>
-**Source**: **UEFI.org**
 
-We can make use of SSDTs to inject said Definintion Blocks into the system to change things as needed. We can add (virtual) devices, rename devices, change control methods (or redefine them), modify buffers, etc. so macOS is happy.
+SSDT를 사용하여 필요한 정의 블록을 시스템에 주입(injection)하여 상황에 맞게 변경할 수 있습니다. 가상 장치를 추가하거나 장치 이름을 변경하고, 제어 방법을 변경하거나 버퍼를 수정하는 등의 작업을 수행하여 MacOS가 제대로 작동하도록 할 수 있습니다.
 
-### Why to prefer SSDTs over a patched DSDT
-A common problem with Hackintoshes is missing ACPI functionality when trying to run macOS on X86-based Intel and AMD systems, such as: Networking not working, USB Ports not working, CPU Power Management not working correctly, screens not turning off when the lid is closed, Sleep and Wake not working, Brightness controls not working, etc.
+###왜 패치된 DSDT보다 SSDT를 많이 선호 하는가?
 
-These issues stem from DSDTs written with Windows support in mind on one hand and Apple not sticking to ACPI tables which conform to the ACPI specs 100 % for their hardware on the other hand. These issues can be addressed by dumping, patching and injecting a patched `DSDT` during boot, replacing the original. 
+해킨토시에서 흔히 발생하는 문제 중 하나는 X86 기반 인텔 및 AMD 시스템에서 macOS를 실행할 때 ACPI 기능이 누락되는 것입니다. 예를 들어, 네트워킹이 작동하지 않거나 USB 포트가 작동하지 않으며, CPU 전원 관리가 올바르게 작동하지 않거나, 뚜껑을 닫았을 때 화면이 꺼지지 않고, Sleep 및 Wake 기능이 작동하지 않거나, 밝기 조절이 작동하지 않는 등의 문제가 있습니다.
 
-As shown earlier, the system firmware updates the ACPI tables *dynamically* during runtime, so injecting a patched (fixed) DSDT might not the be the smartest idea. And since a DSDT can change when updating the BIOS, injecting an older patched DSDT on top of it can cause conflicts and break macOS functionalities. 
+이러한 문제는 Windows OS를 염두에 두고 작성된 DSDT와, 애플이 자사의 하드웨어에 대해 ACPI 사양을 100% 준수하지 않는 것에서 비롯됩니다. 이러한 문제는 부팅 중에 원본 DSDT를 대체하기 위해 패치된 DSDT를 덤프, 패치 및 주입함으로써 해결할 수 있습니다.
 
-Therefore, *dynamic patching* with SSDTs is preferred and much cleaner in regards to acpi-conformity than using a patched DSDT. Plus the whole process is much more efficient, transparent and elegant. And that's why you should avoid patched DSDTs. So whoever tells you that a hackintosh without a patched `DSDT` is incomplete or not fully functional is not fully functional either.
+시스템 펌웨어는 실행 시간 동안 ACPI 테이블을 동적으로 업데이트하므로, 패치된 DSDT를 주입하는 것은 가장 좋은 아이디어가 아닐 수 있습니다. 또한, BIOS 업데이트 시 DSDT가 변경될 수 있으므로, 그 위에 이전에 패치된 DSDT를 주입하면 충돌이 발생하고 macOS 기능이 손상될 수 있습니다.
 
-Continue to the next Chapter, [**ASL Basics**](https://github.com/5T33Z0/OC-Little-Translated/blob/main/00_ACPI/ACPI_Basics/ASL_Basics.md).
+이러한 이유들 때문에, SSDT를 사용한 동적 패치가 패치된 DSDT를 사용하는 것보다 더 선호되고 훨씬 깔끔합니다.
+
+다음 챕터로 가기, [**ASL Basics**](https://github.com/5T33Z0/OC-Little-Translated/blob/main/00_ACPI/ACPI_Basics/ASL_Basics.md).
 
 ## CREDITS and RESOURCES
 - Original [**ASL Guide**](https://bbs.pcbeta.com/forum.php?mod=viewthread&tid=944566&archive=2&extra=page%3D1&page=1) by suhetao
